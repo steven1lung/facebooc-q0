@@ -12,6 +12,13 @@ static bool validate(queue_t *q)
         if (strcmp(e->value, e->next->value) > 0)
             return false;
     }
+    
+    q_reverse(q);
+    
+    for (element_t *e = q->head; e->next; e = e->next) {
+        if (strcmp(e->value, e->next->value) < 0)
+            return false;
+    }
 
     return true;
 }
