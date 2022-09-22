@@ -41,6 +41,29 @@ void q_free(queue_t *q)
 
 bool q_insert_head(queue_t *q, char *s)
 {
+    if(!q) return false;
+    
+    element_t *tmp = malloc(sizeof(element_t));
+    if(!tmp) return false;
+    tmp->value = malloc(sizeof(strlen(s)+1));
+    if (!tmp->value) {
+        free(tmp);
+        return false;
+    }
+
+    strncpy(tmp->value, s, strlen(s) + 1);
+
+    if(q->size==0){
+        q->head = tmp;
+        q->tail = tmp;
+        q->size++;
+        return true;
+    }
+
+    element_t *next = q->head;
+    q->head = tmp;
+    tmp->next = next;
+    q->size++;
     
     return true;
 }
