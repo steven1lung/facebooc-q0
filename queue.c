@@ -10,14 +10,25 @@
  */
 queue_t *q_new()
 {
-    
-    return NULL;
+    queue_t *q = malloc(sizeof(queue_t));
+    if (!q)
+        return NULL;
+    q->size=0;
+    q->head=NULL;
+    q->tail=NULL;
+    return q; 
 }
 
 /* Free all storage used by queue */
 void q_free(queue_t *q)
 {
-
+    if (!q) return;
+    element_t *tmp = q->head, *safe;
+    while(tmp){
+        safe = tmp->next;
+        free(tmp);
+        tmp=safe;
+    }
 }
 
 /*
